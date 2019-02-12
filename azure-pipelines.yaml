@@ -4,6 +4,6 @@ steps:
       $version = Get-Content -Path version.txt;
       $version = $version.Trim();
       Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version"
-      Write-Output $env:CoalesceVersion;
+      Write-Host $env:CoalesceVersion;
 
     displayName: "Grab CoalesceVersion env variable"
