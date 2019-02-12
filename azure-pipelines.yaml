@@ -1,1 +1,8 @@
 
+steps:
+  - powershell: >
+      $version = Get-Content -Path version.txt
+      Write-Output ("##vso[task.setvariable variable="CoalesceVersion";]"$varValue.Trim() )
+      Write-Output $env:CoalesceVersion
+
+    displayName: "Add Build Tag"
