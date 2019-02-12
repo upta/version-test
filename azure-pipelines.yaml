@@ -1,8 +1,8 @@
 
 steps:
   - powershell: >
-      $version = Get-Content -Path version.txt
-      Write-Output ("##vso[task.setvariable variable="CoalesceVersion";]" + $varValue.Trim() )
-      Write-Output $env:CoalesceVersion
+      $version = Get-Content -Path version.txt;
+      Write-Output ("##vso[task.setvariable variable="CoalesceVersion";]" + $varValue.Trim() );
+      Write-Output $env:CoalesceVersion;
 
     displayName: "Grab CoalesceVersion env variable"
