@@ -1,7 +1,11 @@
 
 steps:
   - powershell: >
-      Write-Host "Doing something?";
+      $path = "$(Build.Repository.LocalPath)\version.txt";
+      Write-Host "Trying version path: $path";
+      if(![System.IO.File]::Exists($path)){
+        Write-Error "Path not found!";
+      }
       $version = Get-Content -Path $(Build.Repository.LocalPath)\version.txt;
       $version = $version.Trim();
       Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version"
