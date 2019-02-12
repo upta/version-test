@@ -6,7 +6,8 @@ steps:
       if(![System.IO.File]::Exists($path)){
         Write-Error "Path not found!";
       }
-      $version = Get-Content -Path $(Build.Repository.LocalPath)\version.txt;
+      $version = Get-Content $path;
+      Write-Warning "Version: $version";
       $version = $version.Trim();
       Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version"
       Write-Host "Env? $env:CoalesceVersion";
