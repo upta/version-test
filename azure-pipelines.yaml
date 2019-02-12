@@ -2,7 +2,7 @@
 steps:
   - powershell: >
       Write-Host "Doing something?";
-      $version = Get-Content -Path version.txt;
+      $version = Get-Content -Path .\version.txt;
       $version = $version.Trim();
       Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version"
       Write-Host "Env? $env:CoalesceVersion";
