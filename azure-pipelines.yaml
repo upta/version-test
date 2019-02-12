@@ -10,6 +10,6 @@ steps:
       Write-Warning "Version: $version";
       $version = $version.Trim();
       Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version"
-      Write-Host "Env? $env:CoalesceVersion";
+      Write-Warning "Env? $env:CoalesceVersion";
 
     displayName: "Grab CoalesceVersion env variable"
