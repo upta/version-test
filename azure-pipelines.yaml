@@ -28,7 +28,7 @@ jobs:
       failOnStderr: true
       name: buildBaseVersion
       displayName: "Verify and set BaseVersion variable"
-    - script: echo $(setvarStep.BaseVersion)
+    - script: echo $(buildBaseVersion.BaseVersion)
       name: echovar
 
 - job: Read
