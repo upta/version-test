@@ -4,10 +4,6 @@ variables:
 jobs:
 - job: Setup
   steps:
-    - powershell: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
-      name: setvarStep
-    - script: echo $(setvarStep.myOutputVar)
-      name: checko
     - pwsh: >
           $path = "$(Build.Repository.LocalPath)\version.txt";
           Write-Host "Grabbing version from: $path";
@@ -30,6 +26,7 @@ jobs:
 
           echo "##vso[task.setvariable variable=BaseVersion;isOutput=true]$(version)";
       failOnStderr: true
+      name: buildBaseVersion
       displayName: "Verify and set BaseVersion variable"
     - script: echo $(setvarStep.BaseVersion)
       name: echovar
@@ -37,6 +34,6 @@ jobs:
 - job: Read
   dependsOn: Setup
   variables:
-    CoalesceVersion: $[ dependencies.Setup.outputs['job1.setvarStep.BaseVersion'] ]
+    CoalesceVersion: $[ dependencies.Setup.outputs['job1.buildBaseVersion.BaseVersion'] ]
   steps:
     - pwsh: "Write-Host $(CoalesceVersion)"
