@@ -14,3 +14,7 @@ steps:
       Write-Warning "Env? $($env:CoalesceVersion)";
 
     displayName: "Grab CoalesceVersion env variable"
+
+  - powershell: Write-Warning "Env? $($env:CoalesceVersion) or $(CoalesceVersion)";
+
+    displayName: "eh?"
