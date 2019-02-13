@@ -1,3 +1,6 @@
+variables:
+  CoalesceVersion: $(BaseVersion)-rc.1
+
 steps:
   - task: PowerShell@2
     inputs:
@@ -24,4 +27,6 @@ steps:
           Write-Error "'$version' is an invalid SemVer version"
         }
 
-        Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version";
+        Write-Host "##vso[task.setvariable variable=BaseVersion;]$version";
+
+  - pwsh: $(CoalesceVersion)
