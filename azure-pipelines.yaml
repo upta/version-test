@@ -21,7 +21,7 @@ steps:
         }
         catch
         {
-          Write-Error "Invalid SemVer version"
+          Write-Error "'$version' is an invalid SemVer version"
         }
 
         Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version";
