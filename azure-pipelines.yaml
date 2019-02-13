@@ -1,56 +1,35 @@
 variables:
-  CoalesceVersion: $(BaseVersion)-rc.1
+  VersionSuffix: -rc.1-alpha.$(Build.BuildNumber)
 
-steps:
-  - pwsh: >
-        $path = "$(Build.Repository.LocalPath)\version.txt";
-        Write-Host "Grabbing version from: $path";
+jobs:
+- job: Setup
+  steps:
+    - pwsh: >
+          $path = "$(Build.Repository.LocalPath)\version.txt";
+          Write-Host "Grabbing version from: $path";
 
-        if(![System.IO.File]::Exists($path)){
-          Write-Error "File not found!";
-        }
+          if(![System.IO.File]::Exists($path)){
+            Write-Error "File not found!";
+          }
 
-        $version = (Get-Content $path).Trim();
-        Write-Host "Version found: $version";
+          $version = (Get-Content $path).Trim();
+          Write-Host "Version found: $version";
 
-        try
-        {
-          [System.Management.Automation.SemanticVersion]::Parse($version);
-        }
-        catch
-        {
-          Write-Error "'$version' is an invalid SemVer version"
-        }
+          try
+          {
+            [System.Management.Automation.SemanticVersion]::Parse($version);
+          }
+          catch
+          {
+            Write-Error "'$version' is an invalid SemVer version"
+          }
 
-        Write-Host "##vso[task.setvariable variable=BaseVersion;]$version";
-    failOnStderr: true
-    displayName: "Verify and set BaseVersion variable"
-
-  - task: PowerShell@2
-    inputs:
-      targetType: inline
-      pwsh: true
+          Write-Host "##vso[task.setvariable variable=BaseVersion;isOutput=true]$version";
       failOnStderr: true
-      script: >
-        $path = "$(Build.Repository.LocalPath)\version.txt";
-        Write-Host "Grabbing version from: $path";
-
-        if(![System.IO.File]::Exists($path)){
-          Write-Error "File not found!";
-        }
-
-        $version = (Get-Content $path).Trim();
-        Write-Host "Version found: $version";
-
-        try
-        {
-          [System.Management.Automation.SemanticVersion]::Parse($version);
-        }
-        catch
-        {
-          Write-Error "'$version' is an invalid SemVer version"
-        }
-
-        Write-Host "##vso[task.setvariable variable=BaseVersion;]$version";
-
-  - pwsh: "Write-Host $(CoalesceVersion)"
+      displayName: "Verify and set BaseVersion variable"
+- job: Read
+  dependsOn: Setup
+  variables:
+    CoalesceVersion: $[ dependencies.Setup.outputs['job1.setvarStep.BaseVersion'] ]$(VersionSuffix)
+  steps:
+    - pwsh: "Write-Host $(CoalesceVersion)"
