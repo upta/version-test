@@ -28,12 +28,10 @@ jobs:
       failOnStderr: true
       name: buildBaseVersion
       displayName: "Verify and set BaseVersion variable"
-    - script: echo $(buildBaseVersion.BaseVersion)
-      name: echovar
 
 - job: Read
   dependsOn: Setup
   variables:
     CoalesceVersion: $[ dependencies.Setup.outputs['job1.buildBaseVersion.BaseVersion'] ]
   steps:
-    - pwsh: "Write-Host $(CoalesceVersion)"
+    - pwsh: Write-Host $(CoalesceVersion)
