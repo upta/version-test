@@ -16,7 +16,13 @@ steps:
         $version = (Get-Content $path).Trim();
         Write-Host "Version found: $version";
 
-        #throws if not a valid SemVer
-        [System.Management.Automation.SemanticVersion]($version);
+        try
+        {
+          [System.Management.Automation.SemanticVersion]::Parse($version);
+        }
+        catch
+        {
+          Write-Error "Invalid SemVer version"
+        }
 
         Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version";
