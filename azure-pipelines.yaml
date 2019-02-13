@@ -29,4 +29,4 @@ steps:
 
         Write-Host "##vso[task.setvariable variable=BaseVersion;]$version";
 
-  - pwsh: "CoalesceVersion: $(CoalesceVersion)"
+  - pwsh: "Write-Host $(CoalesceVersion)"
