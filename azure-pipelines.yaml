@@ -9,7 +9,9 @@ steps:
       $version = Get-Content $path;
       Write-Warning "Version: $version";
       $version = $version.Trim();
-      Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version"
+      Write-Warning "Version Trim: $version";
+      Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version";
+      Write-Warning "meh";
       Write-Warning "Env? $env:CoalesceVersion";
 
     displayName: "Grab CoalesceVersion env variable"
