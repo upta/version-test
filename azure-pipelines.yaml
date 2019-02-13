@@ -14,7 +14,7 @@ steps:
         $version = (Get-Content $path).Trim();
         Write-Host "Version found: $version";
 
-        if (!SemanticVersion.TryParse($version))
+        if (![System.Management.Automation.SemanticVersion].TryParse($version))
         {
           Write-Error "Version provided is not a valid SemVer";
         }
