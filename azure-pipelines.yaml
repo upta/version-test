@@ -1,6 +1,10 @@
 steps:
-  - script: choco install powershell-core --version 6.1.1 -y
-  - powershell: Write-Host($($PSVersionTable.PSVersion))
+  - task: PowerShell@2
+    inputs:
+      targetType: inline
+      script: Write-Host($($PSVersionTable.PSVersion))
+      pwsh: true
+
   - powershell: >
       $path = "$(Build.Repository.LocalPath)\version.txt";
       Write-Host "Trying version path: $path";
