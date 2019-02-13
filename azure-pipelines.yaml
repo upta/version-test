@@ -24,7 +24,7 @@ jobs:
             Write-Error "'$version' is an invalid SemVer version"
           }
 
-          echo "##vso[task.setvariable variable=BaseVersion;isOutput=true]$(version)";
+          Write-Host "##vso[task.setvariable variable=BaseVersion;isOutput=true]$version";
       failOnStderr: true
       name: buildBaseVersion
       displayName: "Verify and set BaseVersion variable"
