@@ -1,4 +1,5 @@
 steps:
+  - powershell: Write-Host($($PSVersionTable.PSVersion))
   - powershell: >
       $path = "$(Build.Repository.LocalPath)\version.txt";
       Write-Host "Trying version path: $path";
