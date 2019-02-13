@@ -1,5 +1,5 @@
 variables:
-  VersionSuffix: -rc.1-alpha.$(Build.BuildNumber)
+  VersionSuffix:
 
 jobs:
 - job: Setup
