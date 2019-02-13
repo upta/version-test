@@ -7,7 +7,7 @@ jobs:
     - powershell: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
       name: setvarStep
     - script: echo $(setvarStep.myOutputVar)
-      name: echovar
+      name: checko
     - pwsh: >
           $path = "$(Build.Repository.LocalPath)\version.txt";
           Write-Host "Grabbing version from: $path";
