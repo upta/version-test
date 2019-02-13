@@ -27,9 +27,12 @@ jobs:
           Write-Host "##vso[task.setvariable variable=BaseVersion;isOutput=true]$version";
       failOnStderr: true
       displayName: "Verify and set BaseVersion variable"
+    - script: echo $(setvarStep.BaseVersion)
+      name: echovar
+
 - job: Read
   dependsOn: Setup
   variables:
-    CoalesceVersion: "$[ dependencies.Setup.outputs['job1.setvarStep.BaseVersion'] ]$(VersionSuffix)"
+    CoalesceVersion: $[ dependencies.Setup.outputs['job1.setvarStep.BaseVersion'] ]
   steps:
     - pwsh: "Write-Host $(CoalesceVersion)"
