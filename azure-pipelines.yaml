@@ -2,25 +2,21 @@ steps:
   - task: PowerShell@2
     inputs:
       targetType: inline
-      script: Write-Host($($PSVersionTable.PSVersion))
       pwsh: true
+      script: >
+        $path = "$(Build.Repository.LocalPath)\version.txt";
+        Write-Host "Grabbing version from: $path";
 
-  - powershell: >
-      $path = "$(Build.Repository.LocalPath)\version.txt";
-      Write-Host "Trying version path: $path";
-      if(![System.IO.File]::Exists($path)){
-        Write-Error "Path not found!";
-      }
-      $version = Get-Content $path;
-      Write-Warning "Version: $version";
-      $version = $version.Trim();
-      Write-Warning "Version Trim: $version";
-      Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version";
-      Write-Warning "meh";
-      Write-Warning "Env? $($env:CoalesceVersion)";
+        if(![System.IO.File]::Exists($path)){
+          Write-Error "File not found!";
+        }
 
-    displayName: "Grab CoalesceVersion env variable"
+        $version = (Get-Content $path).Trim();
+        Write-Host "Version found: $version";
 
-  - powershell: Write-Warning "Env? $($env:CoalesceVersion) or $(CoalesceVersion)";
+        if (!SemanticVersion.TryParse($version))
+        {
+          Write-Error "Version provided is not a valid SemVer";
+        }
 
-    displayName: "eh?"
+        Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version";
