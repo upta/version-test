@@ -3,8 +3,6 @@ steps:
     inputs:
       targetType: inline
       pwsh: true
-      failOnStderr: true
-      errorActionPreference: stop
       script: >
         $path = "$(Build.Repository.LocalPath)\version.txt";
         Write-Host "Grabbing version from: $path";
