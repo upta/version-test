@@ -1,4 +1,3 @@
-
 steps:
   - powershell: >
       $path = "$(Build.Repository.LocalPath)\version.txt";
@@ -12,6 +11,6 @@ steps:
       Write-Warning "Version Trim: $version";
       Write-Host "##vso[task.setvariable variable=CoalesceVersion;]$version";
       Write-Warning "meh";
-      Write-Warning "Env? $env:CoalesceVersion";
+      Write-Warning "Env? $($env:CoalesceVersion)";
 
     displayName: "Grab CoalesceVersion env variable"
