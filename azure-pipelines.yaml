@@ -32,6 +32,6 @@ jobs:
 - job: Read
   dependsOn: Setup
   variables:
-    CoalesceVersion: $[ dependencies.Setup.outputs['job1.buildBaseVersion.BaseVersion'] ]
+    CoalesceVersion: "buh$[ dependencies.Setup.outputs['job1.buildBaseVersion.BaseVersion'] ]cha"
   steps:
     - pwsh: Write-Host $(CoalesceVersion)
